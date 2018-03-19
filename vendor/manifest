@@ -1,0 +1,48 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/denisenkom/go-mssqldb",
+			"repository": "https://github.com/denisenkom/go-mssqldb",
+			"revision": "270bc3860bb94dd3a3ffd047377d746c5e276726",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/go-sql-driver/mysql",
+			"repository": "https://github.com/go-sql-driver/mysql",
+			"revision": "1a676ac6e4dce68e9303a1800773861350374a9e",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/jinzhu/gorm",
+			"repository": "https://github.com/jinzhu/gorm",
+			"revision": "6ed508ec6a4ecb3531899a69cbc746ccf65a4166",
+			"branch": "HEAD"
+		},
+		{
+			"importpath": "github.com/jinzhu/inflection",
+			"repository": "https://github.com/jinzhu/inflection",
+			"revision": "04140366298a54a039076d798123ffa108fff46c",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/lib/pq",
+			"repository": "https://github.com/lib/pq",
+			"revision": "b2004221932bd6b13167ef654c81cffac36f7537",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mattn/go-sqlite3",
+			"repository": "https://github.com/mattn/go-sqlite3",
+			"revision": "9101028e5ca824d2baf0fbd91b9700e2669a6cd9",
+			"branch": "master"
+		},
+		{
+			"importpath": "golang.org/x/crypto/md4",
+			"repository": "https://go.googlesource.com/crypto",
+			"revision": "c3a3ad6d03f7a915c0f7e194b7152974bb73d287",
+			"branch": "master",
+			"path": "/md4"
+		}
+	]
+}
