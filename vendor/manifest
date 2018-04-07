@@ -20,6 +20,12 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/google/jsonapi",
+			"repository": "https://github.com/google/jsonapi",
+			"revision": "2dcc18f43696303ed67ecda84a1bccd3455f4486",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/jinzhu/gorm",
 			"repository": "https://github.com/jinzhu/gorm",
 			"revision": "6ed508ec6a4ecb3531899a69cbc746ccf65a4166",
