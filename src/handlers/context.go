@@ -1,7 +1,14 @@
 package handlers
 
-import "github.com/labstack/echo"
+import (
+	"models"
+
+	"github.com/labstack/echo"
+)
 
 type Context struct {
 	echo.Context
+
+	// Current user
+	User *models.User
 }

@@ -1,4 +1,4 @@
-package user
+package models
 
 import "github.com/m4rw3r/uuid"
 
