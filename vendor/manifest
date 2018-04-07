@@ -2,6 +2,54 @@
 	"version": 0,
 	"dependencies": [
 		{
+			"importpath": "github.com/armon/consul-api",
+			"repository": "https://github.com/armon/consul-api",
+			"revision": "eb2c6b5be1b66bab83016e0b05f01b8d5496ffbd",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/coreos/etcd/client",
+			"repository": "https://github.com/coreos/etcd",
+			"revision": "b7770cd9feb6a422ff8032124989bbbcf2425139",
+			"branch": "master",
+			"path": "/client"
+		},
+		{
+			"importpath": "github.com/coreos/etcd/pkg/pathutil",
+			"repository": "https://github.com/coreos/etcd",
+			"revision": "b7770cd9feb6a422ff8032124989bbbcf2425139",
+			"branch": "master",
+			"path": "/pkg/pathutil"
+		},
+		{
+			"importpath": "github.com/coreos/etcd/pkg/srv",
+			"repository": "https://github.com/coreos/etcd",
+			"revision": "b7770cd9feb6a422ff8032124989bbbcf2425139",
+			"branch": "master",
+			"path": "/pkg/srv"
+		},
+		{
+			"importpath": "github.com/coreos/etcd/pkg/types",
+			"repository": "https://github.com/coreos/etcd",
+			"revision": "b7770cd9feb6a422ff8032124989bbbcf2425139",
+			"branch": "master",
+			"path": "/pkg/types"
+		},
+		{
+			"importpath": "github.com/coreos/etcd/version",
+			"repository": "https://github.com/coreos/etcd",
+			"revision": "b7770cd9feb6a422ff8032124989bbbcf2425139",
+			"branch": "master",
+			"path": "/version"
+		},
+		{
+			"importpath": "github.com/coreos/go-semver/semver",
+			"repository": "https://github.com/coreos/go-semver",
+			"revision": "e214231b295a8ea9479f11b70b35d5acf3556d9b",
+			"branch": "master",
+			"path": "/semver"
+		},
+		{
 			"importpath": "github.com/denisenkom/go-mssqldb",
 			"repository": "https://github.com/denisenkom/go-mssqldb",
 			"revision": "270bc3860bb94dd3a3ffd047377d746c5e276726",
@@ -11,6 +59,12 @@
 			"importpath": "github.com/dgrijalva/jwt-go",
 			"repository": "https://github.com/dgrijalva/jwt-go",
 			"revision": "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/fsnotify/fsnotify",
+			"repository": "https://github.com/fsnotify/fsnotify",
+			"revision": "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9",
 			"branch": "master"
 		},
 		{
@@ -26,6 +80,12 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/hashicorp/hcl",
+			"repository": "https://github.com/hashicorp/hcl",
+			"revision": "ef8a98b0bbce4a65b5aa4c368430a80ddc533168",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/jinzhu/gorm",
 			"repository": "https://github.com/jinzhu/gorm",
 			"revision": "6ed508ec6a4ecb3531899a69cbc746ccf65a4166",
@@ -35,6 +95,12 @@
 			"importpath": "github.com/jinzhu/inflection",
 			"repository": "https://github.com/jinzhu/inflection",
 			"revision": "04140366298a54a039076d798123ffa108fff46c",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/jtolds/gls",
+			"repository": "https://github.com/jtolds/gls",
+			"revision": "77f18212c9c7edc9bd6a33d383a7b545ce62f064",
 			"branch": "master"
 		},
 		{
@@ -84,6 +150,12 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/magiconair/properties",
+			"repository": "https://github.com/magiconair/properties",
+			"revision": "2c9e9502788518c97fe44e8955cd069417ee89df",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/mattn/go-colorable",
 			"repository": "https://github.com/mattn/go-colorable",
 			"revision": "efa589957cd060542a26d2dd7832fd6a6c6c3ade",
@@ -102,10 +174,71 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/mitchellh/mapstructure",
+			"repository": "https://github.com/mitchellh/mapstructure",
+			"revision": "00c29f56e2386353d58c599509e8dc3801b0d716",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/pelletier/go-toml",
+			"repository": "https://github.com/pelletier/go-toml",
+			"revision": "66540cf1fcd2c3aee6f6787dfa32a6ae9a870f12",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/smartystreets/assertions",
+			"repository": "https://github.com/smartystreets/assertions",
+			"revision": "7678a5452ebea5b7090a6b163f844c133f523da2",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/smartystreets/goconvey",
+			"repository": "https://github.com/smartystreets/goconvey",
+			"revision": "ef6db91d284a0e7badaa1f0c404c30aa7dee3aed",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/spf13/afero",
+			"repository": "https://github.com/spf13/afero",
+			"revision": "63644898a8da0bc22138abf860edaf5277b6102e",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/spf13/cast",
+			"repository": "https://github.com/spf13/cast",
+			"revision": "8965335b8c7107321228e3e3702cab9832751bac",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/spf13/jwalterweatherman",
+			"repository": "https://github.com/spf13/jwalterweatherman",
+			"revision": "7c0cea34c8ece3fbeb2b27ab9b59511d360fb394",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/spf13/pflag",
+			"repository": "https://github.com/spf13/pflag",
+			"revision": "1ce0cc6db4029d97571db82f85092fccedb572ce",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/spf13/viper",
+			"repository": "https://github.com/spf13/viper",
+			"revision": "8dc2790b029dc41e2b8ff772c63c26adbb1db70d",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/tylerb/graceful",
 			"repository": "https://github.com/tylerb/graceful",
 			"revision": "d72b0151351a13d0421b763b88f791469c4f5dc7",
 			"branch": "master"
+		},
+		{
+			"importpath": "github.com/ugorji/go/codec",
+			"repository": "https://github.com/ugorji/go",
+			"revision": "f3cacc17c85ecb7f1b6a9e373ee85d1480919868",
+			"branch": "master",
+			"path": "/codec"
 		},
 		{
 			"importpath": "github.com/urfave/negroni",
@@ -126,6 +259,27 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/xordataexchange/crypt/backend",
+			"repository": "https://github.com/xordataexchange/crypt",
+			"revision": "b2862e3d0a775f18c7cfe02273500ae307b61218",
+			"branch": "master",
+			"path": "/backend"
+		},
+		{
+			"importpath": "github.com/xordataexchange/crypt/config",
+			"repository": "https://github.com/xordataexchange/crypt",
+			"revision": "b2862e3d0a775f18c7cfe02273500ae307b61218",
+			"branch": "master",
+			"path": "/config"
+		},
+		{
+			"importpath": "github.com/xordataexchange/crypt/encoding/secconf",
+			"repository": "https://github.com/xordataexchange/crypt",
+			"revision": "b2862e3d0a775f18c7cfe02273500ae307b61218",
+			"branch": "master",
+			"path": "/encoding/secconf"
+		},
+		{
 			"importpath": "golang.org/x/crypto/acme",
 			"repository": "https://go.googlesource.com/crypto",
 			"revision": "88942b9c40a4c9d203b82b3731787b672d6e809b",
@@ -140,6 +294,13 @@
 			"path": "/acme/autocert"
 		},
 		{
+			"importpath": "golang.org/x/crypto/cast5",
+			"repository": "https://go.googlesource.com/crypto",
+			"revision": "b2aa35443fbc700ab74c586ae79b81c171851023",
+			"branch": "master",
+			"path": "/cast5"
+		},
+		{
 			"importpath": "golang.org/x/crypto/md4",
 			"repository": "https://go.googlesource.com/crypto",
 			"revision": "c3a3ad6d03f7a915c0f7e194b7152974bb73d287",
@@ -147,9 +308,43 @@
 			"path": "/md4"
 		},
 		{
+			"importpath": "golang.org/x/crypto/openpgp",
+			"repository": "https://go.googlesource.com/crypto",
+			"revision": "b2aa35443fbc700ab74c586ae79b81c171851023",
+			"branch": "master",
+			"path": "/openpgp"
+		},
+		{
+			"importpath": "golang.org/x/sys/unix",
+			"repository": "https://go.googlesource.com/sys",
+			"revision": "3b87a42e500a6dc65dae1a55d0b641295971163e",
+			"branch": "master",
+			"path": "/unix"
+		},
+		{
+			"importpath": "golang.org/x/text/transform",
+			"repository": "https://go.googlesource.com/text",
+			"revision": "2cb43934f0eece38629746959acc633cba083fe4",
+			"branch": "master",
+			"path": "/transform"
+		},
+		{
+			"importpath": "golang.org/x/text/unicode/norm",
+			"repository": "https://go.googlesource.com/text",
+			"revision": "2cb43934f0eece38629746959acc633cba083fe4",
+			"branch": "master",
+			"path": "/unicode/norm"
+		},
+		{
 			"importpath": "gopkg.in/tylerb/graceful.v1",
 			"repository": "https://gopkg.in/tylerb/graceful.v1",
 			"revision": "4654dfbb6ad53cb5e27f37d99b02e16c1872fbbb",
+			"branch": "master"
+		},
+		{
+			"importpath": "gopkg.in/yaml.v2",
+			"repository": "https://gopkg.in/yaml.v2",
+			"revision": "5420a8b6744d3b0345ab293f6fcba19c978f1183",
 			"branch": "master"
 		}
 	]
