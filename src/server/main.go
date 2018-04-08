@@ -3,6 +3,7 @@ package main
 import (
 	"configuration"
 	"db"
+	"handlers"
 	"handlers/authorization"
 	"handlers/chats"
 	"handlers/messages"
@@ -27,6 +28,9 @@ func main() {
 	}
 
 	e := echo.New()
+	e.Binder = &handlers.Binder{
+		Default: new(echo.DefaultBinder),
+	}
 
 	// Middleware
 	e.Use(middleware.Logger())
