@@ -15,8 +15,8 @@ import (
 func RegisterUser(ctx echo.Context) error {
 	var user models.User
 	if err := ctx.Bind(&user); err != nil {
-		log.Errorf("parse error: %v", err)
-		return ctx.NoContent(http.StatusInternalServerError)
+		log.Infof("parse error: %v", err)
+		return ctx.NoContent(http.StatusBadRequest)
 	}
 
 	if err := ctx.Validate(&user); err != nil {
@@ -24,7 +24,7 @@ func RegisterUser(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusBadRequest)
 	}
 
-	if err := users.CreateUser(&user); err != nil {
+	if err := users.Create(&user); err != nil {
 		log.Infof("create user error: %v", err)
 		return ctx.NoContent(http.StatusBadRequest)
 	}

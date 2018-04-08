@@ -15,7 +15,7 @@ func GetByName(name string) (*models.User, error) {
 	return &user, nil
 }
 
-func CreateUser(user *models.User) error {
+func Create(user *models.User) error {
 	if err := db.Pool.Create(user).Error; err != nil {
 		return err
 	}
