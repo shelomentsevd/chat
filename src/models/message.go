@@ -2,13 +2,13 @@ package models
 
 import (
 	"time"
-
-	"github.com/m4rw3r/uuid"
 )
 
 type Message struct {
-	ID        uuid.UUID `json:"id" sql:"unique_index"`
-	ChatID    uuid.UUID `json:"chat_id"`
-	UserID    uuid.UUID `json:"user_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        uint      `jsonapi:"primary,messages" sql:"unique_index"`
+	Content   string    `jsonapi:"attr,content"`
+	ChatID    uint      `jsonapi:"attr,chat_id"`
+	UserID    uint      `jsonapi:"attr,user_id"`
+	CreatedAt time.Time `jsonapi:"attr,created_at"`
+	User      User      `jsonapi:"relation,user"`
 }

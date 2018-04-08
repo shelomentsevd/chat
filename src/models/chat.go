@@ -1,10 +1,7 @@
 package models
 
-import (
-	"github.com/m4rw3r/uuid"
-)
-
 type Chat struct {
-	ID   uuid.UUID `json:"id" sql:"unique_index"`
-	Name string    `json:"name"`
+	ID          uint    `jsonapi:"primary,chats" sql:"unique_index"`
+	Name        string  `jsonapi:"attr,name"`
+	LastMessage Message `jsonapi:"relation,last_message"`
 }
