@@ -10,5 +10,5 @@ type Message struct {
 	ChatID    uint      `jsonapi:"attr,chat_id"`
 	UserID    uint      `jsonapi:"attr,user_id"`
 	CreatedAt time.Time `jsonapi:"attr,created_at"`
-	User      User      `jsonapi:"relation,user"`
+	User      *User     `jsonapi:"relation,user"`
 }
