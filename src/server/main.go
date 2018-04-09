@@ -39,7 +39,10 @@ func main() {
 	api := e.Group("/api/v1")
 	// Registration
 	api.POST("/registration", registration.RegisterUser)
-
+	// Group users
+	usersGroup := api.Group("/users")
+	usersGroup.Use(middleware.BasicAuth(authorization.BasicAuthValidator))
+	usersGroup.GET("/", users.Index)
 	// Group chats
 	chatsGroup := api.Group("/chats")
 	chatsGroup.Use(middleware.BasicAuth(authorization.BasicAuthValidator))
