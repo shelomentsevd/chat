@@ -15,7 +15,7 @@ import (
 const chatLimit = 25
 
 func Index(ctx echo.Context) error {
-	var query params
+	var query indexParameters
 
 	if err := ctx.Bind(&query); err != nil {
 		log.Infof("parse error: %v", err)

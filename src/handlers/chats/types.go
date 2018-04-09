@@ -1,6 +1,6 @@
 package chats
 
-type params struct {
+type indexParameters struct {
 	Limit  int `query:"limit"`
 	Offset int `query:"offset"`
 }
