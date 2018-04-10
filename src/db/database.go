@@ -3,8 +3,12 @@ package db
 import (
 	"time"
 
+	"errors"
+
 	"github.com/jinzhu/gorm"
 )
+
+var RecordNotFound = errors.New("record not found")
 
 var Pool *gorm.DB
 

@@ -1,6 +1,7 @@
 package chats
 
 import (
+	"db"
 	"db/chats"
 	"models"
 
@@ -26,9 +27,14 @@ func Show(ctx echo.Context) error {
 		ID: uint(id),
 	}
 
-	// TODO: ErrNotFound processing!
-	if err := chats.GetByID(&chat); err != nil {
-		return ctx.NoContent(http.StatusNotFound)
+	err = chats.GetByID(&chat)
+	if err != nil {
+		if err == db.RecordNotFound {
+			return ctx.NoContent(http.StatusNotFound)
+		} else {
+			log.Errorf("database error: %v", err)
+			return ctx.NoContent(http.StatusInternalServerError)
+		}
 	}
 
 	out := bytes.NewBuffer(nil)

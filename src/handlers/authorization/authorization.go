@@ -2,30 +2,25 @@ package authorization
 
 import (
 	"db/users"
-	"handlers"
-
-	"fmt"
+	"models"
 
 	"github.com/labstack/echo"
 )
 
-func BasicAuthValidator(user, password string, c echo.Context) (bool, error) {
-	ctx, ok := c.(handlers.Context)
-
-	if !ok {
-		return false, fmt.Errorf("can't cast %T to %T", c, handlers.Context{})
+func BasicAuthValidator(username, password string, ctx echo.Context) (bool, error) {
+	user := models.User{
+		Name: username,
 	}
 
-	model, err := users.GetByName(user)
-	if err != nil {
+	if err := users.Get(&user); err != nil {
 		return false, err
 	}
 
-	if model.Password != password {
+	if user.Password != password {
 		return false, nil
 	}
 
-	ctx.User = model
+	ctx.Set("current_user", user)
 
 	return true, nil
 }

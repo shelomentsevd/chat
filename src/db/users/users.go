@@ -5,20 +5,16 @@ import (
 	"models"
 )
 
-func GetByName(name string) (*models.User, error) {
-	var user models.User
+func Get(user *models.User) error {
+	result := db.Pool.Find(user)
 
-	if err := db.Pool.Where("name = ?", name).First(&user).Error; err != nil {
-		return nil, err
+	if result.RecordNotFound() {
+		return db.RecordNotFound
 	}
 
-	return &user, nil
+	return result.Error
 }
 
 func Create(user *models.User) error {
-	if err := db.Pool.Create(user).Error; err != nil {
-		return err
-	}
-
-	return nil
+	return db.Pool.Create(user).Error
 }

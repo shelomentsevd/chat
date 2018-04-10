@@ -5,8 +5,6 @@ import (
 	"models"
 )
 
-// TODO: RecordNotFound
-
 func Create(chat *models.Chat) error {
 	members := make([]*models.Member, len(chat.Users))
 
@@ -26,20 +24,21 @@ func Create(chat *models.Chat) error {
 }
 
 func GetByID(chat *models.Chat) error {
-	if err := db.Pool.Find(chat).Error; err != nil {
-		return err
+	result := db.Pool.Find(chat)
+
+	if result.RecordNotFound() {
+		return db.RecordNotFound
 	}
 
-	return nil
+	return result.Error
 }
 
 func Get(chats []*models.Chat, limit, offset int) error {
-	if err := db.Pool.
-		Offset(offset).
-		Limit(limit).
-		Find(&chats).Error; err != nil {
-		return err
+	result := db.Pool.Offset(offset).Limit(limit).Find(&chats)
+
+	if result.RecordNotFound() {
+		return db.RecordNotFound
 	}
 
-	return nil
+	return result.Error
 }
