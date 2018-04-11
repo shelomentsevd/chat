@@ -2,14 +2,13 @@ package chats
 
 import (
 	"db"
-	"models"
 )
 
-func Create(chat *models.Chat) error {
-	members := make([]*models.Member, len(chat.Users))
+func Create(chat *db.Chat) error {
+	members := make([]*db.Member, len(chat.Users))
 
 	for i, u := range chat.Users {
-		members[i] = &models.Member{
+		members[i] = &db.Member{
 			UserID: u.ID,
 		}
 	}
@@ -23,7 +22,7 @@ func Create(chat *models.Chat) error {
 	return nil
 }
 
-func GetByID(chat *models.Chat) error {
+func GetByID(chat *db.Chat) error {
 	result := db.Pool.Find(chat)
 
 	if result.RecordNotFound() {
@@ -33,7 +32,7 @@ func GetByID(chat *models.Chat) error {
 	return result.Error
 }
 
-func Get(chats []*models.Chat, limit, offset int) error {
+func Get(chats []*db.Chat, limit, offset int) error {
 	result := db.Pool.Offset(offset).Limit(limit).Find(&chats)
 
 	if result.RecordNotFound() {

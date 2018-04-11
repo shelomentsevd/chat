@@ -1,8 +1,8 @@
 package chats
 
 import (
+	"db"
 	"db/chats"
-	"models"
 
 	"bytes"
 	"net/http"
@@ -13,7 +13,7 @@ import (
 )
 
 func Create(ctx echo.Context) error {
-	var chat models.Chat
+	var chat db.Chat
 
 	if err := ctx.Bind(&chat); err != nil {
 		log.Infof("parse error: %v", err)

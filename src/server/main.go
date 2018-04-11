@@ -8,6 +8,7 @@ import (
 	"handlers/chats"
 	"handlers/messages"
 	"handlers/registration"
+	"handlers/users"
 
 	"time"
 

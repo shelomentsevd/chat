@@ -1,8 +1,8 @@
 package chats
 
 import (
+	"db"
 	"db/chats"
-	"models"
 
 	"bytes"
 	"net/http"
@@ -30,7 +30,7 @@ func Index(ctx echo.Context) error {
 		query.Offset = 0
 	}
 
-	var slice []*models.Chat
+	var slice []*db.Chat
 
 	if err := chats.Get(slice, query.Limit, query.Offset); err != nil {
 		log.Errorf("database error: %v", err)

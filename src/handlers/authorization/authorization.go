@@ -1,14 +1,14 @@
 package authorization
 
 import (
+	"db"
 	"db/users"
-	"models"
 
 	"github.com/labstack/echo"
 )
 
 func BasicAuthValidator(username, password string, ctx echo.Context) (bool, error) {
-	user := models.User{
+	user := db.User{
 		Name: username,
 	}
 

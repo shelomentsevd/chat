@@ -1,8 +1,8 @@
 package registration
 
 import (
+	"db"
 	"db/users"
-	"models"
 
 	"bytes"
 	"net/http"
@@ -13,7 +13,7 @@ import (
 )
 
 func RegisterUser(ctx echo.Context) error {
-	var user models.User
+	var user db.User
 	if err := ctx.Bind(&user); err != nil {
 		log.Infof("parse error: %v", err)
 		return ctx.NoContent(http.StatusBadRequest)

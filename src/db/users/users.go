@@ -2,10 +2,9 @@ package users
 
 import (
 	"db"
-	"models"
 )
 
-func Get(user *models.User) error {
+func Get(user *db.User) error {
 	result := db.Pool.Find(user)
 
 	if result.RecordNotFound() {
@@ -15,6 +14,6 @@ func Get(user *models.User) error {
 	return result.Error
 }
 
-func Create(user *models.User) error {
+func Create(user *db.User) error {
 	return db.Pool.Create(user).Error
 }

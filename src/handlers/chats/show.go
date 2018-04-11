@@ -3,7 +3,6 @@ package chats
 import (
 	"db"
 	"db/chats"
-	"models"
 
 	"bytes"
 	"net/http"
@@ -23,7 +22,7 @@ func Show(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusBadRequest)
 	}
 
-	chat := models.Chat{
+	chat := db.Chat{
 		ID: uint(id),
 	}
 
