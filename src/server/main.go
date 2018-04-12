@@ -51,8 +51,8 @@ func main() {
 	chatsGroup.GET("/", chats.Index)
 	chatsGroup.POST("/", chats.Create)
 	chatsGroup.GET("/:chat", chats.Show)
-	chatsGroup.GET("/:chat/join", chats.Join)
-	chatsGroup.GET("/:chat/leave", chats.Leave)
+	chatsGroup.POST("/:chat/join", chats.Join)
+	chatsGroup.POST("/:chat/leave", chats.Leave)
 	// message routes
 	chatsGroup.GET("/:chat/messages", messages.Index)
 	chatsGroup.GET("/:chat/messages/:message", messages.Show)
