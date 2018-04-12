@@ -5,7 +5,6 @@ import "time"
 type Chat struct {
 	ID       uint `sql:"unique_index"`
 	Name     string
-	Users    []*User
 	Messages []*Message
 	Members  []*Member
 }

@@ -13,11 +13,11 @@ type Message struct {
 	meta    *jsonapi.Meta
 }
 
-func NewMessageView(message *db.Message) *Message {
+func NewMessageView(message *db.Message, user *User) *Message {
 	return &Message{
 		ID:      message.ID,
 		Content: message.Content,
-		User:    NewUserView(message.User),
+		User:    user,
 		meta: &jsonapi.Meta{
 			"created_at": message.CreatedAt,
 		},
