@@ -4,7 +4,7 @@ import "db"
 
 type Chat struct {
 	ID       uint       `jsonapi:"primary,chats"`
-	Name     string     `jsonapi:"attr,name"`
+	Name     string     `jsonapi:"attr,name"                validate:"required,gte=10"`
 	Users    []*User    `jsonapi:"relation,users,omitempty" validate:"required,gte=2,dive"`
 	Messages []*Message `jsonapi:"relation,messages,omitempty"`
 }

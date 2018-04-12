@@ -5,16 +5,6 @@ import (
 )
 
 func Create(chat *db.Chat) error {
-	members := make([]*db.Member, len(chat.Users))
-
-	for i, u := range chat.Users {
-		members[i] = &db.Member{
-			UserID: u.ID,
-		}
-	}
-
-	chat.Members = members
-
 	if err := db.Pool.Create(chat).Error; err != nil {
 		return err
 	}

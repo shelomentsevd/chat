@@ -3,17 +3,22 @@ package registration
 import (
 	"db"
 	"db/users"
+	"handlers"
+	"views"
 
-	"bytes"
 	"net/http"
 
-	"github.com/google/jsonapi"
 	"github.com/labstack/echo"
 	"github.com/labstack/gommon/log"
 )
 
+type form struct {
+	Name     string `form:"name"     validate:"required"`
+	Password string `form:"password" validate:"required"`
+}
+
 func RegisterUser(ctx echo.Context) error {
-	var user db.User
+	var user form
 	if err := ctx.Bind(&user); err != nil {
 		log.Infof("parse error: %v", err)
 		return ctx.NoContent(http.StatusBadRequest)
@@ -24,16 +29,17 @@ func RegisterUser(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusBadRequest)
 	}
 
-	if err := users.Create(&user); err != nil {
+	model := &db.User{
+		Name:     user.Name,
+		Password: user.Password,
+	}
+
+	if err := users.Create(model); err != nil {
 		log.Infof("create user error: %v", err)
 		return ctx.NoContent(http.StatusBadRequest)
 	}
 
-	out := bytes.NewBuffer(nil)
-	if err := jsonapi.MarshalPayload(out, &user); err != nil {
-		log.Errorf("marshal error: %v", err)
-		return ctx.NoContent(http.StatusInternalServerError)
-	}
+	view := views.NewUserView(model)
 
-	return ctx.Blob(http.StatusCreated, jsonapi.MediaType, out.Bytes())
+	return handlers.JSONApiResponse(ctx, view, http.StatusCreated)
 }

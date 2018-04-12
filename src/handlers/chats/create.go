@@ -4,6 +4,7 @@ import (
 	"db"
 	"db/chats"
 	"handlers"
+	"views"
 
 	"net/http"
 
@@ -12,7 +13,7 @@ import (
 )
 
 func Create(ctx echo.Context) error {
-	var chat db.Chat
+	var chat views.Chat
 
 	if err := ctx.Bind(&chat); err != nil {
 		log.Infof("parse error: %v", err)
@@ -24,10 +25,25 @@ func Create(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusBadRequest)
 	}
 
-	if err := chats.Create(&chat); err != nil {
+	// TODO: Check users, and add them
+	members := make([]*db.Member, len(chat.Users))
+	for i, u := range chat.Users {
+		members[i] = &db.Member{
+			UserID: u.ID,
+		}
+	}
+
+	model := &db.Chat{
+		Name:    chat.Name,
+		Members: members,
+	}
+
+	if err := chats.Create(model); err != nil {
 		log.Infof("create chat error: %v", err)
 		return ctx.NoContent(http.StatusBadRequest)
 	}
 
-	return handlers.JSONApiResponse(ctx, &chat, http.StatusCreated)
+	view := views.NewChatView(model)
+
+	return handlers.JSONApiResponse(ctx, &view, http.StatusCreated)
 }

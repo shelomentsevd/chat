@@ -9,6 +9,7 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/labstack/gommon/log"
+	"views"
 )
 
 const chatLimit = 25
@@ -36,5 +37,10 @@ func Index(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusInternalServerError)
 	}
 
-	return handlers.JSONApiResponse(ctx, &slice, http.StatusOK)
+	viewCollection := make([]*views.Chat, len(slice))
+	for i, c := range slice {
+		viewCollection[i] = views.NewChatView(c)
+	}
+
+	return handlers.JSONApiResponse(ctx, &viewCollection, http.StatusOK)
 }

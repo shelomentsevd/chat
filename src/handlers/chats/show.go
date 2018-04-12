@@ -4,6 +4,7 @@ import (
 	"db"
 	"db/chats"
 	"handlers"
+	"views"
 
 	"net/http"
 	"strconv"
@@ -21,11 +22,11 @@ func Show(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusBadRequest)
 	}
 
-	chat := db.Chat{
+	model := &db.Chat{
 		ID: uint(id),
 	}
 
-	err = chats.GetByID(&chat)
+	err = chats.GetByID(model)
 	if err != nil {
 		if err == db.RecordNotFound {
 			return ctx.NoContent(http.StatusNotFound)
@@ -35,5 +36,7 @@ func Show(ctx echo.Context) error {
 		}
 	}
 
-	return handlers.JSONApiResponse(ctx, &chat, http.StatusOK)
+	view := views.NewChatView(model)
+
+	return handlers.JSONApiResponse(ctx, &view, http.StatusOK)
 }
