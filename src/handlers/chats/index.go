@@ -3,11 +3,10 @@ package chats
 import (
 	"db"
 	"db/chats"
+	"handlers"
 
-	"bytes"
 	"net/http"
 
-	"github.com/google/jsonapi"
 	"github.com/labstack/echo"
 	"github.com/labstack/gommon/log"
 )
@@ -37,11 +36,5 @@ func Index(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusInternalServerError)
 	}
 
-	out := bytes.NewBuffer(nil)
-	if err := jsonapi.MarshalPayload(out, &slice); err != nil {
-		log.Errorf("marshal error: %v", err)
-		return ctx.NoContent(http.StatusInternalServerError)
-	}
-
-	return ctx.Blob(http.StatusCreated, jsonapi.MediaType, out.Bytes())
+	return handlers.JSONApiResponse(ctx, &slice, http.StatusOK)
 }
