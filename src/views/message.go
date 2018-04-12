@@ -7,7 +7,7 @@ import (
 )
 
 type Message struct {
-	ID      uint   `jsonapi:"primary,messages" sql:"unique_index"`
+	ID      uint   `jsonapi:"primary,messages"`
 	Content string `jsonapi:"attr,content"`
 	User    *User  `jsonapi:"relation,user"`
 	meta    *jsonapi.Meta

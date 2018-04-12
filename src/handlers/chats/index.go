@@ -32,14 +32,14 @@ func Index(ctx echo.Context) error {
 
 	var slice []*db.Chat
 
-	if err := chats.Get(slice, query.Limit, query.Offset); err != nil {
+	if err := chats.GetList(slice, query.Limit, query.Offset); err != nil {
 		log.Errorf("database error: %v", err)
 		return ctx.NoContent(http.StatusInternalServerError)
 	}
 
 	viewCollection := make([]*views.Chat, len(slice))
 	for i, c := range slice {
-		viewCollection[i] = views.NewChatView(c)
+		viewCollection[i] = views.NewChatView(c, nil, nil)
 	}
 
 	return handlers.JSONApiResponse(ctx, &viewCollection, http.StatusOK)

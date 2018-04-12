@@ -12,17 +12,21 @@ func Create(chat *db.Chat) error {
 	return nil
 }
 
-func GetByID(chat *db.Chat) error {
+func Get(chat *db.Chat, members bool) error {
 	result := db.Pool.Find(chat)
 
 	if result.RecordNotFound() {
 		return db.RecordNotFound
 	}
 
+	if members {
+		result = result.Related(chat.Members)
+	}
+
 	return result.Error
 }
 
-func Get(chats []*db.Chat, limit, offset int) error {
+func GetList(chats []*db.Chat, limit, offset int) error {
 	result := db.Pool.Offset(offset).Limit(limit).Find(&chats)
 
 	if result.RecordNotFound() {

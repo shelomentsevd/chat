@@ -26,7 +26,7 @@ func Show(ctx echo.Context) error {
 		ID: uint(id),
 	}
 
-	err = chats.GetByID(model)
+	err = chats.Get(model, false)
 	if err != nil {
 		if err == db.RecordNotFound {
 			return ctx.NoContent(http.StatusNotFound)
@@ -36,7 +36,7 @@ func Show(ctx echo.Context) error {
 		}
 	}
 
-	view := views.NewChatView(model)
+	view := views.NewChatView(model, nil, nil)
 
 	return handlers.JSONApiResponse(ctx, &view, http.StatusOK)
 }
