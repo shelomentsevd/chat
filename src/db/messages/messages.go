@@ -10,6 +10,16 @@ func Create(message *db.Message) error {
 	return nil
 }
 
+func Get(message *db.Message) error {
+	result := db.Pool.Find(message)
+
+	if result.RecordNotFound() {
+		return db.RecordNotFound
+	}
+
+	return result.Error
+}
+
 func GetListByChatID(messages []*db.Message, chat uint, limit, offset int) error {
 	result := db.Pool.
 		Offset(offset).
