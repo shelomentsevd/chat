@@ -14,6 +14,10 @@ type Message struct {
 }
 
 func NewMessageView(message *db.Message, user *User) *Message {
+	if message == nil {
+		return nil
+	}
+
 	return &Message{
 		ID:      message.ID,
 		Content: message.Content,

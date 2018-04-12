@@ -10,6 +10,10 @@ type Chat struct {
 }
 
 func NewChatView(chat *db.Chat, users []*User, messages []*Message) *Chat {
+	if chat == nil {
+		return nil
+	}
+
 	return &Chat{
 		ID:       chat.ID,
 		Name:     chat.Name,

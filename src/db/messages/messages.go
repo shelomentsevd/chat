@@ -9,3 +9,18 @@ func Create(message *db.Message) error {
 
 	return nil
 }
+
+func GetListByChatID(messages []*db.Message, chat uint, limit, offset int) error {
+	result := db.Pool.
+		Offset(offset).
+		Limit(limit).
+		Where(&db.Message{ChatID: chat}).
+		Order("created_at desc").
+		Find(&messages)
+
+	if result.RecordNotFound() {
+		return db.RecordNotFound
+	}
+
+	return result.Error
+}
