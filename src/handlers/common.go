@@ -11,6 +11,8 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
+const CurrentUserKey = "current_user"
+
 func BasicAuthValidator(username, password string, ctx echo.Context) (bool, error) {
 	user := db.User{
 		Name: username,
@@ -24,7 +26,7 @@ func BasicAuthValidator(username, password string, ctx echo.Context) (bool, erro
 		return false, nil
 	}
 
-	ctx.Set("current_user", user)
+	ctx.Set(CurrentUserKey, user)
 
 	return true, nil
 }

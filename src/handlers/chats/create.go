@@ -24,7 +24,7 @@ func Create(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusBadRequest)
 	}
 
-	current, ok := ctx.Get("current_user").(db.User)
+	current, ok := ctx.Get(handlers.CurrentUserKey).(db.User)
 	if !ok {
 		log.Info("can't get current user from context")
 		return ctx.NoContent(http.StatusInternalServerError)
