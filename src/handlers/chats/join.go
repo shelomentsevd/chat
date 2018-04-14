@@ -3,7 +3,6 @@ package chats
 import (
 	"db"
 	"handlers"
-	"views"
 
 	"net/http"
 	"strconv"
@@ -40,16 +39,5 @@ func Join(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusInternalServerError)
 	}
 
-	model := &db.Chat{
-		ID: uint(chatID),
-	}
-
-	if err := db.Get(model); err != nil {
-		log.Errorf("database error: %v", err)
-		return ctx.NoContent(http.StatusInternalServerError)
-	}
-
-	view := views.NewChatView(model, nil)
-
-	return handlers.JSONApiResponse(ctx, &view, http.StatusOK)
+	return ctx.NoContent(http.StatusOK)
 }
