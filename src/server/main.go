@@ -4,7 +4,6 @@ import (
 	"configuration"
 	"db"
 	"handlers"
-	"handlers/authorization"
 	"handlers/chats"
 	"handlers/messages"
 	"handlers/registration"
@@ -42,11 +41,11 @@ func main() {
 	api.POST("/registration", registration.RegisterUser)
 	// Group users
 	usersGroup := api.Group("/users")
-	usersGroup.Use(middleware.BasicAuth(authorization.BasicAuthValidator))
+	usersGroup.Use(middleware.BasicAuth(handlers.BasicAuthValidator))
 	usersGroup.GET("/", users.Index)
 	// Group chats
 	chatsGroup := api.Group("/chats")
-	chatsGroup.Use(middleware.BasicAuth(authorization.BasicAuthValidator))
+	chatsGroup.Use(middleware.BasicAuth(handlers.BasicAuthValidator))
 	// chats routes
 	chatsGroup.GET("/", chats.Index)
 	chatsGroup.POST("/", chats.Create)

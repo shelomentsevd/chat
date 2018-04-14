@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"db"
+
 	"bytes"
 	"net/http"
 
@@ -8,6 +10,24 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/gommon/log"
 )
+
+func BasicAuthValidator(username, password string, ctx echo.Context) (bool, error) {
+	user := db.User{
+		Name: username,
+	}
+
+	if err := db.Get(&user); err != nil {
+		return false, err
+	}
+
+	if user.Password != password {
+		return false, nil
+	}
+
+	ctx.Set("current_user", user)
+
+	return true, nil
+}
 
 func JSONApiResponse(ctx echo.Context, response interface{}, status int) error {
 	out := bytes.NewBuffer(nil)
