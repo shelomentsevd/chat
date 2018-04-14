@@ -30,30 +30,21 @@ func Create(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusUnauthorized)
 	}
 
+	ids := make([]uint, len(chat.Users))
+	for i, u := range chat.Users {
+		ids[i] = u.ID
+	}
+
+	var userModels []*db.User
+	if err := db.Get(userModels, db.WithIDs(ids...)); err != nil {
+		log.Errorf("database error: %v", err)
+		return ctx.NoContent(http.StatusInternalServerError)
+	}
+
 	usersMap := make(map[uint]*db.User)
 	usersMap[current.ID] = &current
-
-	// TODO: Refactoring needed. Just collect all ids and ask user data with one query!
-	for _, u := range chat.Users {
-		if _, ok := usersMap[u.ID]; ok {
-			continue
-		}
-
-		user := &db.User{
-			ID: u.ID,
-		}
-
-		if err := db.Get(user); err != nil {
-			if err == db.ErrRecordNotFound {
-				log.Infof("user with id %d not found", u.ID)
-				return ctx.NoContent(http.StatusBadRequest)
-			} else {
-				log.Errorf("can't get current user from db: %v", err)
-				return ctx.NoContent(http.StatusInternalServerError)
-			}
-		}
-
-		usersMap[user.ID] = user
+	for _, u := range userModels {
+		usersMap[u.ID] = u
 	}
 
 	i := 0
