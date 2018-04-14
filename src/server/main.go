@@ -28,6 +28,8 @@ func main() {
 	}
 
 	e := echo.New()
+	e.Validator = handlers.NewValidator()
+
 	e.Binder = &handlers.Binder{
 		Default: new(echo.DefaultBinder),
 	}
