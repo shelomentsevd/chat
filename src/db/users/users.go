@@ -14,6 +14,12 @@ func Get(user *db.User) error {
 	return result.Error
 }
 
+func GetList(users []*db.User, limit, offset int) error {
+	result := db.Pool.Limit(limit).Offset(offset).Find(&users)
+
+	return result.Error
+}
+
 func GetByIDs(ids ...uint) ([]*db.User, error) {
 	users := make([]*db.User, 0)
 
