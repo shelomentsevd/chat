@@ -45,3 +45,11 @@ func WithCondition(model interface{}) Option {
 		},
 	}
 }
+
+func WithPreload(column string, condition ...interface{}) Option {
+	return Option{
+		apply: func(db *gorm.DB) *gorm.DB {
+			return db.Preload(column, condition...)
+		},
+	}
+}

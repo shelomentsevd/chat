@@ -35,7 +35,7 @@ func Show(ctx echo.Context) error {
 		}
 	}
 
-	view := views.NewChatView(model, nil, nil)
+	view := views.NewChatView(model, nil)
 
 	return handlers.JSONApiResponse(ctx, &view, http.StatusOK)
 }

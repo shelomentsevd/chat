@@ -24,7 +24,7 @@ func Index(ctx echo.Context) error {
 
 	viewCollection := make([]*views.Chat, len(slice))
 	for i, c := range slice {
-		viewCollection[i] = views.NewChatView(c, nil, nil)
+		viewCollection[i] = views.NewChatView(c, nil)
 	}
 
 	return handlers.JSONApiResponse(ctx, &viewCollection, http.StatusOK)

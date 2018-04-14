@@ -33,6 +33,7 @@ func Create(ctx echo.Context) error {
 	usersMap := make(map[uint]*db.User)
 	usersMap[current.ID] = &current
 
+	// TODO: Refactoring needed. Just collect all ids and ask user data with one query!
 	for _, u := range chat.Users {
 		if _, ok := usersMap[u.ID]; ok {
 			continue
@@ -77,7 +78,7 @@ func Create(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusInternalServerError)
 	}
 
-	view := views.NewChatView(model, usersViews, nil)
+	view := views.NewChatView(model, usersViews)
 
 	return handlers.JSONApiResponse(ctx, &view, http.StatusCreated)
 }
