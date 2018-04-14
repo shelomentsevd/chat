@@ -49,8 +49,8 @@ func Create(ctx echo.Context) error {
 
 	current, ok := ctx.Get(handlers.CurrentUserKey).(db.User)
 	if !ok {
-		log.Error("current user isn't specified")
-		return ctx.NoContent(http.StatusInternalServerError)
+		log.Error("can't create message by unauthorized user")
+		return ctx.NoContent(http.StatusUnauthorized)
 	}
 
 	messageModel := &db.Message{

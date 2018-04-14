@@ -27,7 +27,7 @@ func Create(ctx echo.Context) error {
 	current, ok := ctx.Get(handlers.CurrentUserKey).(db.User)
 	if !ok {
 		log.Info("can't get current user from context")
-		return ctx.NoContent(http.StatusInternalServerError)
+		return ctx.NoContent(http.StatusUnauthorized)
 	}
 
 	usersMap := make(map[uint]*db.User)
