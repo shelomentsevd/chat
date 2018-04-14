@@ -1,23 +1,24 @@
 package db
 
-import "time"
+import (
+	"time"
+)
 
 type Chat struct {
-	ID       uint `sql:"unique_index"`
-	Name     string
-	Messages []*Message
-	Members  []*Member
+	ID      uint   `gorm:"primary_key"`
+	Name    string `gorm:"not null"`
+	Members []*Member
 }
 
 type Member struct {
-	ID     uint `sql:"unique_index"`
+	ID     uint `gorm:"primary_key"`
 	UserID uint
 	ChatID uint
 }
 
 type Message struct {
-	ID        uint `sql:"unique_index"`
-	Content   string
+	ID        uint   `gorm:"primary_key"`
+	Content   string `gorm:"not null"`
 	ChatID    uint
 	UserID    uint
 	CreatedAt time.Time
@@ -25,7 +26,7 @@ type Message struct {
 }
 
 type User struct {
-	ID       uint   `sql:"unique_index"`
-	Name     string `sql:"unique_index"`
-	Password string
+	ID       uint   `gorm:"primary_key"`
+	Name     string `sql:"unique_index" gorm:"not null"`
+	Password string `gorm:"not null"`
 }
