@@ -36,7 +36,7 @@ func Create(ctx echo.Context) error {
 	}
 
 	var userModels []*db.User
-	if err := db.Get(userModels, db.WithIDs(ids...)); err != nil {
+	if err := db.Get(&userModels, db.WithIDs(ids...)); err != nil {
 		log.Errorf("database error: %v", err)
 		return ctx.NoContent(http.StatusInternalServerError)
 	}
@@ -71,5 +71,5 @@ func Create(ctx echo.Context) error {
 
 	view := views.NewChatView(model, usersViews)
 
-	return handlers.JSONApiResponse(ctx, &view, http.StatusCreated)
+	return handlers.JSONApiResponse(ctx, view, http.StatusCreated)
 }

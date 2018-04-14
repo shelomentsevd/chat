@@ -27,5 +27,5 @@ func Index(ctx echo.Context) error {
 		viewCollection[i] = views.NewChatView(c, nil)
 	}
 
-	return handlers.JSONApiResponse(ctx, &viewCollection, http.StatusOK)
+	return handlers.JSONApiResponse(ctx, viewCollection, http.StatusOK)
 }
