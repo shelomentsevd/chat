@@ -2,8 +2,6 @@ package messages
 
 import (
 	"db"
-	"db/messages"
-	"db/users"
 	"handlers"
 	"views"
 
@@ -34,7 +32,7 @@ func Show(ctx echo.Context) error {
 		ChatID: uint(chatID),
 	}
 
-	err = messages.Get(model)
+	err = db.Get(model)
 	switch err {
 	case db.RecordNotFound:
 		return ctx.NoContent(http.StatusNotFound)
@@ -47,7 +45,7 @@ func Show(ctx echo.Context) error {
 		ID: model.UserID,
 	}
 
-	err = users.Get(userModel)
+	err = db.Get(userModel)
 	if err != nil {
 		log.Errorf("can't find message author database error: %v", err)
 		return ctx.NoContent(http.StatusInternalServerError)

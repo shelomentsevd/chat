@@ -2,7 +2,6 @@ package chats
 
 import (
 	"db"
-	"db/chats"
 	"handlers"
 	"views"
 
@@ -26,7 +25,7 @@ func Show(ctx echo.Context) error {
 		ID: uint(id),
 	}
 
-	err = chats.Get(model, false)
+	err = db.Get(model)
 	if err != nil {
 		if err == db.RecordNotFound {
 			return ctx.NoContent(http.StatusNotFound)

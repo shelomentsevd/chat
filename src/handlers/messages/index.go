@@ -2,8 +2,6 @@ package messages
 
 import (
 	"db"
-	"db/messages"
-	"db/users"
 	"handlers"
 	"pagenators"
 	"views"
@@ -28,12 +26,19 @@ func Index(ctx echo.Context) error {
 
 	messagesModels := make([]*db.Message, 0)
 
-	if err := messages.GetListByChatID(messagesModels, uint(id), pagenator.Limit, pagenator.Offset); err != nil {
-		if err == db.RecordNotFound {
-			log.Infof("chat %d not found", id)
-			return ctx.NoContent(http.StatusNotFound)
-		}
+	err = db.Get(messagesModels,
+		db.WithCondition(&db.Message{
+			ChatID: uint(id),
+		}),
+		db.WithLimit(pagenator.Limit),
+		db.WithOffset(pagenator.Offset),
+		db.WithOrder("created_at desc"))
 
+	switch err {
+	case db.RecordNotFound:
+		log.Infof("chat %d not found", id)
+		return ctx.NoContent(http.StatusNotFound)
+	default:
 		log.Errorf("database error: %v", err)
 		return ctx.NoContent(http.StatusInternalServerError)
 	}
@@ -51,8 +56,8 @@ func Index(ctx echo.Context) error {
 		ids = append(ids, m.UserID)
 	}
 
-	usersModels, err := users.GetByIDs(ids...)
-	if err != nil {
+	var usersModels []*db.User
+	if err := db.Get(usersModels, db.WithIDs(ids...)); err != nil {
 		log.Errorf("database error: %v", err)
 		return ctx.NoContent(http.StatusInternalServerError)
 	}

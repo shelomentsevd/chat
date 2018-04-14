@@ -2,7 +2,6 @@ package authorization
 
 import (
 	"db"
-	"db/users"
 
 	"github.com/labstack/echo"
 )
@@ -12,7 +11,7 @@ func BasicAuthValidator(username, password string, ctx echo.Context) (bool, erro
 		Name: username,
 	}
 
-	if err := users.Get(&user); err != nil {
+	if err := db.Get(&user); err != nil {
 		return false, err
 	}
 

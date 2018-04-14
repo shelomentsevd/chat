@@ -2,7 +2,6 @@ package registration
 
 import (
 	"db"
-	"db/users"
 	"handlers"
 	"views"
 
@@ -34,7 +33,7 @@ func RegisterUser(ctx echo.Context) error {
 		Password: user.Password,
 	}
 
-	if err := users.Create(model); err != nil {
+	if err := db.Create(model); err != nil {
 		log.Infof("create user error: %v", err)
 		return ctx.NoContent(http.StatusBadRequest)
 	}

@@ -2,8 +2,6 @@ package chats
 
 import (
 	"db"
-	"db/chats"
-	"db/users"
 	"handlers"
 	"views"
 
@@ -44,7 +42,7 @@ func Create(ctx echo.Context) error {
 			ID: u.ID,
 		}
 
-		if err := users.Get(user); err != nil {
+		if err := db.Get(user); err != nil {
 			if err == db.RecordNotFound {
 				log.Infof("user with id %d not found", u.ID)
 				return ctx.NoContent(http.StatusBadRequest)
@@ -74,7 +72,7 @@ func Create(ctx echo.Context) error {
 		Members: members,
 	}
 
-	if err := chats.Create(model); err != nil {
+	if err := db.Create(model); err != nil {
 		log.Errorf("create chat error: %v", err)
 		return ctx.NoContent(http.StatusInternalServerError)
 	}

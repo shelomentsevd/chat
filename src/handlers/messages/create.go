@@ -2,8 +2,6 @@ package messages
 
 import (
 	"db"
-	"db/chats"
-	"db/messages"
 	"handlers"
 	"views"
 
@@ -28,7 +26,7 @@ func Create(ctx echo.Context) error {
 		ID: uint(id),
 	}
 
-	err = chats.Get(chatModel, false)
+	err = db.Get(chatModel)
 	if err != nil {
 		if err == db.RecordNotFound {
 			return ctx.NoContent(http.StatusNotFound)
@@ -63,7 +61,7 @@ func Create(ctx echo.Context) error {
 		CreatedAt: time.Now(),
 	}
 
-	if err := messages.Create(messageModel); err != nil {
+	if err := db.Create(messageModel); err != nil {
 		log.Errorf("can't create message error: %v", err)
 		return ctx.NoContent(http.StatusInternalServerError)
 	}

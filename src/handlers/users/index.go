@@ -2,7 +2,6 @@ package users
 
 import (
 	"db"
-	"db/users"
 	"handlers"
 	"pagenators"
 	"views"
@@ -18,7 +17,7 @@ func Index(ctx echo.Context) error {
 
 	var models []*db.User
 
-	if err := users.GetList(models, pagenator.Limit, pagenator.Offset); err != nil {
+	if err := db.Get(models, db.WithLimit(pagenator.Limit), db.WithOffset(pagenator.Offset)); err != nil {
 		log.Errorf("database error: %v", err)
 		return ctx.NoContent(http.StatusInternalServerError)
 	}
