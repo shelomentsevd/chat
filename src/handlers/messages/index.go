@@ -35,7 +35,7 @@ func Index(ctx echo.Context) error {
 		db.WithOrder("created_at desc"))
 
 	switch err {
-	case db.RecordNotFound:
+	case db.ErrRecordNotFound:
 		log.Infof("chat %d not found", id)
 		return ctx.NoContent(http.StatusNotFound)
 	default:

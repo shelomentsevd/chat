@@ -27,7 +27,7 @@ func Show(ctx echo.Context) error {
 
 	err = db.Get(model)
 	if err != nil {
-		if err == db.RecordNotFound {
+		if err == db.ErrRecordNotFound {
 			return ctx.NoContent(http.StatusNotFound)
 		} else {
 			log.Errorf("database error: %v", err)

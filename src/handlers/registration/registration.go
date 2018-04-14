@@ -30,7 +30,7 @@ func RegisterUser(ctx echo.Context) error {
 
 	model := &db.User{
 		Name:     user.Name,
-		Password: user.Password,
+		Password: &user.Password,
 	}
 
 	if err := db.Create(model); err != nil {

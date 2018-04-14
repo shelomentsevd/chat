@@ -43,7 +43,7 @@ func Create(ctx echo.Context) error {
 		}
 
 		if err := db.Get(user); err != nil {
-			if err == db.RecordNotFound {
+			if err == db.ErrRecordNotFound {
 				log.Infof("user with id %d not found", u.ID)
 				return ctx.NoContent(http.StatusBadRequest)
 			} else {

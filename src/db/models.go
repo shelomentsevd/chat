@@ -26,7 +26,7 @@ type Message struct {
 }
 
 type User struct {
-	ID       uint   `gorm:"primary_key"`
-	Name     string `sql:"unique_index" gorm:"not null"`
-	Password string `gorm:"not null"`
+	ID       uint    `gorm:"primary_key"`
+	Name     string  `sql:"unique_index" gorm:"not null"`
+	Password *string `gorm:"not null"`
 }

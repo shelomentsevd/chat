@@ -9,8 +9,8 @@ func Get(model interface{}, opts ...Option) error {
 
 	result := query.Find(model)
 	if result.RecordNotFound() {
-		return RecordNotFound
+		return ErrRecordNotFound
 	}
 
-	return result.Error
+	return processError(result.Error)
 }

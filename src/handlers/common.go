@@ -22,7 +22,7 @@ func BasicAuthValidator(username, password string, ctx echo.Context) (bool, erro
 		return false, err
 	}
 
-	if user.Password != password {
+	if *user.Password != password {
 		return false, nil
 	}
 

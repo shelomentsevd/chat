@@ -8,7 +8,12 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-var RecordNotFound = errors.New("record not found")
+var (
+	ErrRecordNotFound        = errors.New("record not found")
+	ErrPgUniqueViolation     = errors.New("record already exists")
+	ErrPgNotNullViolation    = errors.New("column shouldn't be null")
+	ErrPgForeignKeyViolation = errors.New("wrong key value")
+)
 
 var Pool *gorm.DB
 
