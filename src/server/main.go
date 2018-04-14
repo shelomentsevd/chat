@@ -53,6 +53,7 @@ func main() {
 	chatsGroup.GET("/:chat", chats.Show)
 	chatsGroup.POST("/:chat/join", chats.Join)
 	chatsGroup.POST("/:chat/leave", chats.Leave)
+	chatsGroup.GET("/:chat/users", users.Index)
 	// message routes
 	chatsGroup.GET("/:chat/messages", messages.Index)
 	chatsGroup.GET("/:chat/messages/:message", messages.Show)
