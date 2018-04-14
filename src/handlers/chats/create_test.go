@@ -118,6 +118,26 @@ func TestCreate(t *testing.T) {
 			So(rec.Code, ShouldEqual, http.StatusBadRequest)
 		})
 
+		Convey("Create chat with non-existing user", func() {
+			chat := views.Chat{
+				Name: "Alice independence chat",
+				Users: []*views.User{
+					&views.User{
+						ID: 1000,
+					},
+				},
+			}
+
+			req := request(&chat)
+			rec := httptest.NewRecorder()
+			ctx := e.NewContext(req, rec)
+			ctx.Set(handlers.CurrentUserKey, alice)
+
+			err := Create(ctx)
+			So(err, ShouldBeNil)
+			So(rec.Code, ShouldEqual, http.StatusBadRequest)
+		})
+
 		Convey("Create chat without title", func() {
 			chat := views.Chat{
 				Name: "",

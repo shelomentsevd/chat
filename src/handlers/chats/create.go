@@ -41,6 +41,10 @@ func Create(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusInternalServerError)
 	}
 
+	if len(userModels) == 0 {
+		return ctx.NoContent(http.StatusBadRequest)
+	}
+
 	usersMap := make(map[uint]*db.User)
 	usersMap[current.ID] = &current
 	for _, u := range userModels {
