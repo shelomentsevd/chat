@@ -55,6 +55,7 @@ func main() {
 	usersGroup := api.Group("/users")
 	usersGroup.Use(middleware.BasicAuth(handlers.BasicAuthValidator))
 	usersGroup.GET("/", users.Index)
+	usersGroup.GET("/current", users.Current)
 	// Group chats
 	chatsGroup := api.Group("/chats")
 	chatsGroup.Use(middleware.BasicAuth(handlers.BasicAuthValidator))
