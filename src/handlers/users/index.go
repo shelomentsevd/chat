@@ -43,13 +43,13 @@ func Index(ctx echo.Context) error {
 		viewCollection[i] = views.NewUserView(u)
 	}
 
-	return handlers.JSONApiResponse(ctx, &viewCollection, http.StatusOK)
+	return handlers.JSONApiResponse(ctx, viewCollection, http.StatusOK)
 }
 
 func chatUsers(id uint, pagenator *pagenators.Pagenator) ([]*db.User, error) {
 	var members []*db.Member
 
-	if err := db.Get(members,
+	if err := db.Get(&members,
 		db.WithCondition(&db.Member{
 			ChatID: id,
 		}),
@@ -64,7 +64,7 @@ func chatUsers(id uint, pagenator *pagenators.Pagenator) ([]*db.User, error) {
 	}
 
 	var users []*db.User
-	if err := db.Get(users, db.WithIDs(ids...)); err != nil {
+	if err := db.Get(&users, db.WithIDs(ids...)); err != nil {
 		return nil, err
 	}
 
@@ -74,7 +74,7 @@ func chatUsers(id uint, pagenator *pagenators.Pagenator) ([]*db.User, error) {
 func allUsers(pagenator *pagenators.Pagenator) ([]*db.User, error) {
 	var users []*db.User
 
-	if err := db.Get(users, db.WithLimit(pagenator.Limit), db.WithOffset(pagenator.Offset)); err != nil {
+	if err := db.Get(&users, db.WithLimit(pagenator.Limit), db.WithOffset(pagenator.Offset)); err != nil {
 		return nil, err
 	}
 
