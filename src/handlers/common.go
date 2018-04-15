@@ -14,11 +14,10 @@ import (
 const CurrentUserKey = "current_user"
 
 func BasicAuthValidator(username, password string, ctx echo.Context) (bool, error) {
-	user := db.User{
+	var user db.User
+	if err := db.Get(&user, db.WithCondition(&db.User{
 		Name: username,
-	}
-
-	if err := db.Get(&user); err != nil {
+	})); err != nil {
 		return false, err
 	}
 
