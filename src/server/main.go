@@ -23,7 +23,16 @@ func main() {
 		log.Fatalf("can't read configuration error: %v", err)
 	}
 
-	if err := db.Init(config.DB.Params(), config.DB.MaxConnections, config.DB.MaxIdleConnections, config.DB.ConnectionLifeTime); err != nil {
+	// TODO: Refactor this
+	for i := 0; i < 100; i++ {
+		err := db.Init(config.DB.Params(), config.DB.MaxConnections, config.DB.MaxIdleConnections, config.DB.ConnectionLifeTime)
+		if err == nil {
+			break
+		}
+		log.Infof("error: %v", err)
+		<-time.After(time.Second)
+	}
+	if err != nil {
 		log.Fatalf("can't connect to database by URL: %s error: %v", config.DB.Params(), err)
 	}
 
@@ -62,5 +71,7 @@ func main() {
 
 	e.Server.Addr = config.Server.String()
 
-	graceful.ListenAndServe(e.Server, 10*time.Second)
+	if err := graceful.ListenAndServe(e.Server, 10*time.Second); err != nil {
+		log.Infof("Error after shutdown: %v", err)
+	}
 }

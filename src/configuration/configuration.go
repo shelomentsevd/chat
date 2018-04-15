@@ -60,7 +60,7 @@ type Server struct {
 }
 
 func (s Server) String() string {
-	return fmt.Sprint("%s:%s", s.Host, s.Port)
+	return fmt.Sprintf("%s:%s", s.Host, s.Port)
 }
 
 func New() (*Configuration, error) {
@@ -99,7 +99,7 @@ func New() (*Configuration, error) {
 		server.SetDefault(key, value)
 	}
 
-	if err := database.Unmarshal(&configuration.Server); err != nil {
+	if err := server.Unmarshal(&configuration.Server); err != nil {
 		return nil, err
 	}
 
