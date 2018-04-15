@@ -17,7 +17,7 @@ func Index(ctx echo.Context) error {
 
 	var slice []*db.Chat
 
-	if err := db.Get(slice, db.WithLimit(pagenator.Limit), db.WithOffset(pagenator.Offset)); err != nil {
+	if err := db.Get(&slice, db.WithLimit(pagenator.Limit), db.WithOffset(pagenator.Offset)); err != nil {
 		log.Errorf("database error: %v", err)
 		return ctx.NoContent(http.StatusInternalServerError)
 	}

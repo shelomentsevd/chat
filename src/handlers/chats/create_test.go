@@ -16,7 +16,7 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func request(json interface{}) *http.Request {
+func create_request(json interface{}) *http.Request {
 	out := bytes.NewBuffer(nil)
 	jsonapi.MarshalPayload(out, json)
 
@@ -74,7 +74,7 @@ func TestCreate(t *testing.T) {
 				},
 			}
 
-			req := request(&chat)
+			req := create_request(&chat)
 			rec := httptest.NewRecorder()
 			ctx := e.NewContext(req, rec)
 			ctx.Set(handlers.CurrentUserKey, alice)
@@ -92,7 +92,7 @@ func TestCreate(t *testing.T) {
 				},
 			}
 
-			req := request(&chat)
+			req := create_request(&chat)
 			rec := httptest.NewRecorder()
 			ctx := e.NewContext(req, rec)
 			ctx.Set(handlers.CurrentUserKey, alice)
@@ -108,7 +108,7 @@ func TestCreate(t *testing.T) {
 				Users: nil,
 			}
 
-			req := request(&chat)
+			req := create_request(&chat)
 			rec := httptest.NewRecorder()
 			ctx := e.NewContext(req, rec)
 			ctx.Set(handlers.CurrentUserKey, alice)
@@ -128,7 +128,7 @@ func TestCreate(t *testing.T) {
 				},
 			}
 
-			req := request(&chat)
+			req := create_request(&chat)
 			rec := httptest.NewRecorder()
 			ctx := e.NewContext(req, rec)
 			ctx.Set(handlers.CurrentUserKey, alice)
@@ -146,7 +146,7 @@ func TestCreate(t *testing.T) {
 				},
 			}
 
-			req := request(&chat)
+			req := create_request(&chat)
 			rec := httptest.NewRecorder()
 			ctx := e.NewContext(req, rec)
 			ctx.Set(handlers.CurrentUserKey, alice)
