@@ -24,9 +24,21 @@ func Index(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusBadRequest)
 	}
 
+	err = db.Get(&db.Chat{
+		ID: uint(id),
+	})
+	if err != nil {
+		if err == db.ErrRecordNotFound {
+			return ctx.NoContent(http.StatusNotFound)
+		} else {
+			log.Errorf("database error: %v", err)
+			return ctx.NoContent(http.StatusInternalServerError)
+		}
+	}
+
 	messagesModels := make([]*db.Message, 0)
 
-	err = db.Get(messagesModels,
+	err = db.Get(&messagesModels,
 		db.WithCondition(&db.Message{
 			ChatID: uint(id),
 		}),
@@ -34,13 +46,15 @@ func Index(ctx echo.Context) error {
 		db.WithOffset(pagenator.Offset),
 		db.WithOrder("created_at desc"))
 
-	switch err {
-	case db.ErrRecordNotFound:
-		log.Infof("chat %d not found", id)
-		return ctx.NoContent(http.StatusNotFound)
-	default:
-		log.Errorf("database error: %v", err)
-		return ctx.NoContent(http.StatusInternalServerError)
+	if err != nil {
+		switch err {
+		case db.ErrRecordNotFound:
+			log.Infof("chat %d not found", id)
+			return ctx.NoContent(http.StatusNotFound)
+		default:
+			log.Errorf("database error: %v", err)
+			return ctx.NoContent(http.StatusInternalServerError)
+		}
 	}
 
 	ids := make([]uint, 0)
@@ -57,7 +71,7 @@ func Index(ctx echo.Context) error {
 	}
 
 	var usersModels []*db.User
-	if err := db.Get(usersModels, db.WithIDs(ids...)); err != nil {
+	if err := db.Get(&usersModels, db.WithIDs(ids...)); err != nil {
 		log.Errorf("database error: %v", err)
 		return ctx.NoContent(http.StatusInternalServerError)
 	}
@@ -74,5 +88,5 @@ func Index(ctx echo.Context) error {
 		messagesViews[i] = views.NewMessageView(m, views.NewUserView(m.User))
 	}
 
-	return handlers.JSONApiResponse(ctx, &messagesViews, http.StatusOK)
+	return handlers.JSONApiResponse(ctx, messagesViews, http.StatusOK)
 }
