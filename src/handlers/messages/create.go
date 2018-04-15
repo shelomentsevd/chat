@@ -29,11 +29,26 @@ func Create(ctx echo.Context) error {
 	err = db.Get(chatModel)
 	if err != nil {
 		if err == db.ErrRecordNotFound {
-			return ctx.NoContent(http.StatusNotFound)
+			return ctx.NoContent(http.StatusBadRequest)
 		} else {
 			log.Errorf("database error: %v", err)
 			return ctx.NoContent(http.StatusInternalServerError)
 		}
+	}
+
+	current, ok := ctx.Get(handlers.CurrentUserKey).(db.User)
+	if !ok {
+		log.Error("can't create message by unauthorized user")
+		return ctx.NoContent(http.StatusUnauthorized)
+	}
+
+	var members []*db.Member
+	err = db.Get(&members, db.WithCondition(&db.Member{
+		ChatID: chatModel.ID,
+		UserID: current.ID,
+	}))
+	if len(members) == 0 {
+		return ctx.NoContent(http.StatusForbidden)
 	}
 
 	var newMessage views.Message
@@ -45,12 +60,6 @@ func Create(ctx echo.Context) error {
 	if err := ctx.Validate(newMessage); err != nil {
 		log.Infof("validation error: %v", err)
 		return ctx.NoContent(http.StatusBadRequest)
-	}
-
-	current, ok := ctx.Get(handlers.CurrentUserKey).(db.User)
-	if !ok {
-		log.Error("can't create message by unauthorized user")
-		return ctx.NoContent(http.StatusUnauthorized)
 	}
 
 	messageModel := &db.Message{
@@ -68,5 +77,5 @@ func Create(ctx echo.Context) error {
 
 	view := views.NewMessageView(messageModel, views.NewUserView(messageModel.User))
 
-	return handlers.JSONApiResponse(ctx, &view, http.StatusCreated)
+	return handlers.JSONApiResponse(ctx, view, http.StatusCreated)
 }
