@@ -122,7 +122,7 @@ func TestShow(t *testing.T) {
 		}
 
 		Convey("Message exists", func() {
-			req := index_request()
+			req := show_request()
 			rec := httptest.NewRecorder()
 			ctx := e.NewContext(req, rec)
 			ctx.Set(handlers.CurrentUserKey, alice)
@@ -135,7 +135,7 @@ func TestShow(t *testing.T) {
 		})
 
 		Convey("Message doesn't exist", func() {
-			req := index_request()
+			req := show_request()
 			rec := httptest.NewRecorder()
 			ctx := e.NewContext(req, rec)
 			ctx.Set(handlers.CurrentUserKey, alice)
@@ -148,7 +148,7 @@ func TestShow(t *testing.T) {
 		})
 
 		Convey("Chat doesn't exist", func() {
-			req := index_request()
+			req := show_request()
 			rec := httptest.NewRecorder()
 			ctx := e.NewContext(req, rec)
 			ctx.Set(handlers.CurrentUserKey, alice)

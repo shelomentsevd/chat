@@ -27,18 +27,32 @@ func Show(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusBadRequest)
 	}
 
+	err = db.Get(&db.Chat{
+		ID: uint(chatID),
+	})
+	if err != nil {
+		if err == db.ErrRecordNotFound {
+			return ctx.NoContent(http.StatusNotFound)
+		} else {
+			log.Errorf("database error: %v", err)
+			return ctx.NoContent(http.StatusInternalServerError)
+		}
+	}
+
 	model := &db.Message{
 		ID:     uint(messageID),
 		ChatID: uint(chatID),
 	}
 
 	err = db.Get(model)
-	switch err {
-	case db.ErrRecordNotFound:
-		return ctx.NoContent(http.StatusNotFound)
-	default:
-		log.Errorf("database error: %v", err)
-		return ctx.NoContent(http.StatusInternalServerError)
+	if err != nil {
+		switch err {
+		case db.ErrRecordNotFound:
+			return ctx.NoContent(http.StatusNotFound)
+		default:
+			log.Errorf("database error: %v", err)
+			return ctx.NoContent(http.StatusInternalServerError)
+		}
 	}
 
 	userModel := &db.User{
@@ -53,5 +67,5 @@ func Show(ctx echo.Context) error {
 
 	view := views.NewMessageView(model, views.NewUserView(userModel))
 
-	return handlers.JSONApiResponse(ctx, &view, http.StatusOK)
+	return handlers.JSONApiResponse(ctx, view, http.StatusOK)
 }
