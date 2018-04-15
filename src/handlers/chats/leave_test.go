@@ -14,11 +14,11 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func join_request() *http.Request {
+func leave_request() *http.Request {
 	return httptest.NewRequest(http.MethodPost, "/chats", nil)
 }
 
-func TestJoin(t *testing.T) {
+func TestLeave(t *testing.T) {
 	config, err := configuration.New()
 	if err != nil {
 		t.Errorf("tests error: %v", err)
@@ -68,6 +68,9 @@ func TestJoin(t *testing.T) {
 			Name: "Chat one#001",
 			Members: []*db.Member{
 				&db.Member{
+					UserID: alice.ID,
+				},
+				&db.Member{
 					UserID: users[0].ID,
 				},
 				&db.Member{
@@ -83,41 +86,41 @@ func TestJoin(t *testing.T) {
 			t.Error(err)
 		}
 
-		Convey("Chat exists", func() {
-			req := join_request()
+		Convey("chat exists", func() {
+			req := leave_request()
 			rec := httptest.NewRecorder()
 			ctx := e.NewContext(req, rec)
 			ctx.Set(handlers.CurrentUserKey, alice)
 			ctx.SetParamValues(strconv.FormatUint(uint64(chat.ID), 10))
 			ctx.SetParamNames("chat")
 
-			err := Join(ctx)
+			err := Leave(ctx)
 			So(err, ShouldBeNil)
 			So(rec.Code, ShouldEqual, http.StatusOK)
 
-			Convey("Join to chat(already in this chat)", func() {
-				req := show_request()
+			Convey("leave again", func() {
+				req := leave_request()
 				rec := httptest.NewRecorder()
 				ctx := e.NewContext(req, rec)
 				ctx.Set(handlers.CurrentUserKey, alice)
 				ctx.SetParamValues(strconv.FormatUint(uint64(chat.ID), 10))
 				ctx.SetParamNames("chat")
 
-				err := Join(ctx)
+				err := Leave(ctx)
 				So(err, ShouldBeNil)
 				So(rec.Code, ShouldEqual, http.StatusOK)
 			})
 		})
 
 		Convey("Chat does not exist", func() {
-			req := join_request()
+			req := leave_request()
 			rec := httptest.NewRecorder()
 			ctx := e.NewContext(req, rec)
 			ctx.Set(handlers.CurrentUserKey, alice)
 			ctx.SetParamValues("1000")
 			ctx.SetParamNames("chat")
 
-			err := Join(ctx)
+			err := Leave(ctx)
 			So(err, ShouldBeNil)
 			So(rec.Code, ShouldEqual, http.StatusBadRequest)
 		})
