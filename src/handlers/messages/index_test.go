@@ -34,7 +34,7 @@ func TestIndex(t *testing.T) {
 
 	pool := db.Pool
 
-	Convey("Create message test", t, func() {
+	Convey("Index message test", t, func() {
 		db.Pool = pool.Begin()
 		defer db.Pool.Rollback()
 
