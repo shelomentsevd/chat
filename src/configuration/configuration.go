@@ -55,12 +55,11 @@ func (d Database) Params() string {
 }
 
 type Server struct {
-	Host string `mapstructure:"host"`
 	Port string `mapstructure:"port"`
 }
 
 func (s Server) String() string {
-	return fmt.Sprintf("%s:%s", s.Host, s.Port)
+	return fmt.Sprintf(":%s", s.Port)
 }
 
 func New() (*Configuration, error) {
@@ -92,7 +91,6 @@ func New() (*Configuration, error) {
 	server.SetEnvPrefix("server")
 
 	for key, value := range map[string]interface{}{
-		"host": "localhost",
 		"port": "3000",
 	} {
 		server.BindEnv(key)

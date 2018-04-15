@@ -37,6 +37,7 @@ func main() {
 	}
 
 	e := echo.New()
+	e.Logger.SetLevel(log.DEBUG)
 	e.Validator = handlers.NewValidator()
 
 	e.Binder = &handlers.Binder{
