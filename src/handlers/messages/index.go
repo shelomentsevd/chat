@@ -60,8 +60,8 @@ func Index(ctx echo.Context) error {
 	ids := make([]uint, 0)
 	usersMap := make(map[uint][]*db.Message)
 	for _, m := range messagesModels {
-		if userMessages, ok := usersMap[m.UserID]; ok {
-			userMessages = append(userMessages, m)
+		if _, ok := usersMap[m.UserID]; ok {
+			usersMap[m.UserID] = append(usersMap[m.UserID], m)
 			continue
 		}
 
